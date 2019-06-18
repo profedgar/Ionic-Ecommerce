@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Adicionar Produto
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form (ngSubmit)="addProdutoCarrinho()">
+        <ion-item>
+          <ion-input type="text"  value="{{produto.nome}}"  name="Produto" disabled></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="number"  name="Informe Qtd" placeholder="Qtd"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="number"  value="{{produto.preco}}" disabled></ion-input>
+        </ion-item>               
+        <ion-button type="Submit" block>Adicionar</ion-button>
+    
+      </form>
+
+</ion-content>

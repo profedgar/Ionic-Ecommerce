@@ -1,39 +1,44 @@
+import { Categoria } from './../Models/Categoria';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-list',
   templateUrl: 'list.page.html',
   styleUrls: ['list.page.scss']
 })
+
 export class ListPage implements OnInit {
-  private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+
+  url="http://127.0.0.1:3333";
+
+  categorias:Categoria[];
+  route: any;
+  
+  constructor(public http:HttpClient) {
+
   }
 
   ngOnInit() {
+    this.getcategorias();
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
+
+  getcategorias(){
+    console.log(this.url+"/categorias");
+    var headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');  
+    headers.append('Accept', '/');
+    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
+    headers.append('Access-Control-Allow-Origin', "*"); 
+    headers.append('Access-Control-Allow-Headers', "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding, application/json");
+  
+    this.http.get<Categoria[]>(this.url+"/categorias").subscribe(
+      resultado=>{
+        this.categorias = resultado;
+        console.log(this.categorias);
+      }
+    )
+  }
+  
+  
 }
